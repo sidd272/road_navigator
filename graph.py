@@ -2,7 +2,7 @@ class Node:
     def __init__(self, label):
         self.label = label
         self.visited = False
-        self.adj_List = []
+        self.adj_List = [Node(label)]
 
     def getLabel(self):
         return self.label
@@ -75,7 +75,7 @@ class Graph:
     def BFS(self, start_label):
         start_vertex = None
         bfs = []
-
+       
         for vertex in self.vertices:
             if vertex.label == start_label:
                 start_vertex = vertex
@@ -87,4 +87,21 @@ class Graph:
             node = queue.pop(0)
             bfs.append(node)
             for adj in node.adj_List:
-                if adj.
+                if adj.getVisited()==False:
+                    queue.append(adj)
+                    adj.setVisited(True)
+        return bfs
+def main():
+    a=Graph(3)
+    a.addNode(1)
+    a.addNode(2)
+    a.addNode(3)
+    a.addEdge(1,2)
+    a.addEdge(2,3)
+    bfs=a.BFS(1)
+    for it in bfs:
+        print(it)
+    
+
+if __name__ == "__main__":
+    main()
